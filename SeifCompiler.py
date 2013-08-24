@@ -1,4 +1,4 @@
-from Lexican import *
+from LexicAn import *
 
 
 class SeifCompiler:
@@ -16,3 +16,7 @@ class SeifCompiler:
 	
 	def Analize( self ):
 		pass
+		
+		
+app = SeifCompiler( )
+
