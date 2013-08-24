@@ -1,12 +1,9 @@
 
 
 class LexicAn:
+	"""Clase que realiza el analisis lexicografico de un archivo"""
 	
 	def __init__( self ):
-		
-	def LoadFile( self, filename ):
-	
-	def WriteFile( self, filename ):
 	
 	def Tokenizer( self, text ):
 	
