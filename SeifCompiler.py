@@ -1,5 +1,9 @@
-from LexicAn import *
+#-*- coding: utf-8 -*-
+#Cuauhtemoc Herrera Muñoz
+#Universidad de Guadalajara
+#Compiladores
 
+from LexicAn import *
 
 class SeifCompiler:
 
