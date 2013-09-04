@@ -19,7 +19,7 @@ class LexicAn:
 		lines = split( '\n', text )
 		self.tokens = list( )
 		for i in lines:
-			for j in split( '(\+|\-)', i ):
+			for j in split( '(\+|\-|\*|/|\}|\{|\]|\[|\>|\<|\!\=|\=\=|\=|\!)', i ):
 				j = j.strip( ' ' ) 
 				if j != '':
 					self.tokens.append( j )
@@ -70,7 +70,5 @@ class LexicAn:
 					s = s + i + ' : Error\n'
 		print( s )
 
-
-algo = LexicAn( )
-algo.Tokenizer( '++2x10\n4 + 3\nalfa -beta\n2.3-x1' )
-algo.Identifier( )
+app = LexicAn( )
+app.Tokenizer( "a+b\na-b\na*b\na/b\na>b\na<b\na!=b\na==b\na=b\n{a}[b]" )
