@@ -41,6 +41,10 @@ class LexicAn:
 				s = s + i + ' : Llave\n'
 			elif i == '(' or i == ')':
 				s = s + i + ' : Parentesis\n'
+			elif i == '!':
+				s = s + i + ' : Operador Logico\n'
+			elif i == '=':
+				s = s + i + ' : Operador de Asignacion\n'
 			else:
 				state = 0
 				for j in i:
@@ -113,7 +117,3 @@ class LexicAn:
 				else:
 					s = s + i + ' : Error\n'
 		print( s )
-
-app = LexicAn( )
-app.Tokenizer( "a-b*(7.53*25)/alfa{!algo}\na&&b+a||b" )
-app.Identifier( )
