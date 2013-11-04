@@ -5,7 +5,7 @@
 #Compiladores
 
 
-tokenTypes = {  
+tokenTypes = {
 	'ID' : 1,
 	'INT' : 2,
 	'FLOAT' : 3,
@@ -20,6 +20,7 @@ tokenTypes = {
 	'LEFTBRA' : 12,
 	'RIGHTBRA' : 13,
 	'DELIM' : 14,
-	'EPSILON' : 15	
-
+	'EPSILON' : 15,
+	'$' : 16,
+	'PRINT' : 17	
 }

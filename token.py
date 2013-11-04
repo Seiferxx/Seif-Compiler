@@ -14,4 +14,4 @@ class token:
 		return self._type
 		
 	def getStr( self ):
-		return self._type
+		return self._str

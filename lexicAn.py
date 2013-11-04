@@ -10,7 +10,7 @@ from tokenTypes import *
 from token import *
 
 class lexicAn:
-	"""Clase que realiza el analisis lexicografico de un archivo"""
+	"""Clase que realiza el analisis lexicografico"""
 	
 	def __init__( self ):
 		"""Constructor de la clase"""
@@ -18,8 +18,8 @@ class lexicAn:
 		self.aTokens = list( )
 		self.eFlag = False
 	
-	def tokenizer( self, text ):
-		"""Tokenizer que devuelve una lista con los tokens que resultan de
+	def tokenize( self, text ):
+		"""Devuelve una lista con los tokens que resultan de
 		   dividir el texto"""
 		lines = split( '\n', text )
 		self.tokens = list( )
@@ -27,18 +27,19 @@ class lexicAn:
 			i = i.replace( '“', '\"' )
 			i = i.replace( '”', '\"' )
 			for j in split( '(\;|\,|\+|\-|\*|/|\}|\{|\)|\(|\<\=|\>\=|\>|\<|\!\=|\=\=|\=|\!|\&\&|\|\|)', i ):
-				j = j.strip( ' ' ) 
+				j = j.strip( ' ' )
 				if ' ' in j:
 					for k in split( ' ', j ):
-						k = k.strip( ' ' ) 
+						k = k.strip( ' ' )
 						if k != '':
 							self.tokens.append( k )
 				else:
 					if j != '':
 						self.tokens.append( j )
-		return self.tokens 
+		print( self.tokens )
+		return self.tokens
 	
-	def identifier( self ):
+	def identify( self ):
 		s = ''
 		totals = list( )
 		ID = 0
@@ -58,43 +59,47 @@ class lexicAn:
 		for i in self.tokens:
 			if i == '+' or i == '-':
 				s = s + i + ' : Operador Suma\n'
-				self.aTokens.append( token( tokenTypes[ 'OPPLUS' ] ,i ) )
+				self.aTokens.append( token( 'OPPLUS' ,i ) )
 				OPPLUS = OPPLUS + 1
+			elif i.upper == 'PRINT':
+				s = s + i + ' : Identificador\n'
+				self.aTokens.append( token( 'PRINT' ,i ) )
+				ID = ID + 1
 			elif i == '*' or i == '/':
 				s = s + i + ' : Operador Multiplicacion\n'
-				self.aTokens.append( token( tokenTypes[ 'OPTIMES' ] ,i ) )
+				self.aTokens.append( token( 'OPTIMES' ,i ) )
 				OPTIMES = OPTIMES + 1
 			elif i == '>' or i == '<' or i == '<=' or i == '>=':
 				s = s + i + ' : Operador Relacional\n'
-				self.aTokens.append( token( tokenTypes[ 'OPREL' ] ,i ) )
+				self.aTokens.append( token( 'OPREL' ,i ) )
 				OPREL = OPREL + 1
 			elif i == '!':
 				s = s + i + ' : Operador Logico\n'
-				self.aTokens.append( token( tokenTypes[ 'OPLOG' ] ,i ) )
+				self.aTokens.append( token( 'OPLOG'  ,i ) )
 				OPLOG = OPLOG + 1
 			elif i == '{' or i == '}':
 				s = s + i + ' : Llave\n'
 				if i == '{':
 					LEFTBRA = LEFTBRA + 1
-					self.aTokens.append( token( tokenTypes[ 'LEFTBRA' ] ,i ) )
+					self.aTokens.append( token( 'LEFTBRA' ,i ) )
 				else:
 					RIGHTBRA = RIGHTBRA + 1
-					self.aTokens.append( token( tokenTypes[ 'RIGHTBRA' ] ,i ) )
+					self.aTokens.append( token( 'RIGHTBRA' ,i ) )
 			elif i == '(' or i == ')':
 				s = s + i + ' : Parentesis\n'
 				if i == '(':
 					LEFTPAR = LEFTPAR + 1
-					self.aTokens.append( token( tokenTypes[ 'LEFTPAR' ] ,i ) )
+					self.aTokens.append( token( 'LEFTPAR' ,i ) )
 				else:
 					RIGHTPAR = RIGHTPAR + 1
-					self.aTokens.append( token( tokenTypes[ 'RIGHTPAR' ] ,i ) )
+					self.aTokens.append( token( 'RIGHTPAR' ,i ) )
 			elif i == '=':
 				s = s + i + ' : Operador de Asignacion\n'
-				self.aTokens.append( token( tokenTypes[ 'OPASSIGN' ] ,i ) )
-				OPASSIGN = OPASSIGN + 1 
+				self.aTokens.append( token( 'OPASSIGN' ,i ) )
+				OPASSIGN = OPASSIGN + 1
 			elif i == ';' or i == ',':
 				s = s + i + ' : Delimitador\n'
-				self.aTokens.append( token( tokenTypes[ 'DELIM' ] ,i ) )
+				self.aTokens.append( token( 'DELIM' ,i ) )
 				DELIM = DELIM + 1
 			else:
 				state = 0
@@ -159,32 +164,32 @@ class lexicAn:
 						elif match( '[a-zA-Z_]', j ):
 							state = 12
 						else:
-							state = -1 
+							state = -1
 					else:
 						state = -1
 				if state == 1:
 					s = s + i + ' : Identificador\n'
-					self.aTokens.append( token( tokenTypes[ 'ID' ] ,i ) )
+					self.aTokens.append( token( 'ID' ,i ) )
 					ID = ID + 1
 				elif state == 2:
 					s = s + i + ' : Numero Entero\n'
-					self.aTokens.append( token( tokenTypes[ 'INT' ] ,i ) )
+					self.aTokens.append( token( 'INT' ,i ) )
 					INT = INT + 1
 				elif state == 3:
 					s = s + i + ' : Numero Real\n'
-					self.aTokens.append( token( tokenTypes[ 'FLOAT' ] ,i ) )
+					self.aTokens.append( token( 'FLOAT' ,i ) )
 					FLOAT = FLOAT + 1
 				elif state == 8 or state == 9:
 					s = s + i + ' : Operador Relacional\n'
-					self.aTokens.append( token( tokenTypes[ 'OPREL' ] ,i ) )
+					self.aTokens.append( token( 'OPREL' ,i ) )
 					OPREL = OPREL + 1
 				elif state == 10 or state == 11:
 					s = s + i + ' : Operador Logico\n'
-					self.aTokens.append( token( tokenTypes[ 'OPLOG' ] ,i ) )
+					self.aTokens.append( token( 'OPLOG',i ) )
 					OPLOG = OPLOG + 1
 				elif state == 13:
 					s = s + i + ' : Cadena\n'
-					self.aTokens.append( token( tokenTypes[ 'CHAR' ],i ) )
+					self.aTokens.append( token( 'CHAR',i ) )
 					CHAR = CHAR + 1
 				else:
 					s = s + i + ' : Error\n'
@@ -204,7 +209,9 @@ class lexicAn:
 		totals.append( LEFTBRA )
 		totals.append( RIGHTBRA )
 		totals.append( DELIM )
-		self.aTokens.append( token( tokenTypes[ 'EPSILON' ], '' ) )
+		#self.aTokens.append( token( 'EPSILON', '' ) )
+		for i in self.aTokens:
+			print( i.getType( ) )
 		return totals
 		
 	def errorRaised( self ):
